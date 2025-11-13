@@ -1,0 +1,51 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
+
+// **************************************************************************
+// InjectableConfigGenerator
+// **************************************************************************
+
+// ignore_for_file: type=lint
+// coverage:ignore-file
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
+
+import '../../data/repositories/atendimento_repository_mock.dart' as _i116;
+import '../../domain/repositories/atendimento_repository.dart' as _i965;
+import '../../domain/usecases/buscar_todos_atendimentos_usecase.dart' as _i392;
+import '../../domain/usecases/excluir_atendimento_usecase.dart' as _i962;
+import '../../domain/usecases/salvar_atendimento_usecase.dart' as _i534;
+import '../../presentation/cubits/listagem/listagem_atendimento_cubit.dart'
+    as _i256;
+
+// initializes the registration of main-scope dependencies inside of GetIt
+_i174.GetIt $initGetIt(
+  _i174.GetIt getIt, {
+  String? environment,
+  _i526.EnvironmentFilter? environmentFilter,
+}) {
+  final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
+  gh.lazySingleton<_i965.AtendimentoRepository>(
+    () => _i116.AtendimentoRepositoryMock(),
+  );
+  gh.lazySingleton<_i392.BuscarTodosAtendimentosUseCase>(
+    () =>
+        _i392.BuscarTodosAtendimentosUseCase(gh<_i965.AtendimentoRepository>()),
+  );
+  gh.lazySingleton<_i962.ExcluirAtendimentoUseCase>(
+    () => _i962.ExcluirAtendimentoUseCase(gh<_i965.AtendimentoRepository>()),
+  );
+  gh.lazySingleton<_i534.SalvarAtendimentoUseCase>(
+    () => _i534.SalvarAtendimentoUseCase(gh<_i965.AtendimentoRepository>()),
+  );
+  gh.factory<_i256.ListagemAtendimentoCubit>(
+    () => _i256.ListagemAtendimentoCubit(
+      gh<_i392.BuscarTodosAtendimentosUseCase>(),
+      gh<_i962.ExcluirAtendimentoUseCase>(),
+      gh<_i534.SalvarAtendimentoUseCase>(),
+    ),
+  );
+  return getIt;
+}
