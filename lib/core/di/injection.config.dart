@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:image_picker/image_picker.dart' as _i183;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../data/repositories/atendimento_repository_mock.dart' as _i116;
+import '../../data/repositories/atendimento_repository_imp.dart' as _i231;
 import '../../domain/repositories/atendimento_repository.dart' as _i965;
 import '../../domain/usecases/buscar_todos_atendimentos_usecase.dart' as _i392;
 import '../../domain/usecases/excluir_atendimento_usecase.dart' as _i962;
@@ -22,6 +22,7 @@ import '../../presentation/cubits/listagem/listagem_atendimento_cubit.dart'
     as _i256;
 import '../../presentation/cubits/realizacao/realizacao_atendimento_cubit.dart'
     as _i411;
+import '../database/database_helper.dart' as _i64;
 import 'register_module.dart' as _i291;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,9 +33,10 @@ _i174.GetIt $initGetIt(
 }) {
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
   final registerModule = _$RegisterModule();
+  gh.singleton<_i64.DatabaseHelper>(() => _i64.DatabaseHelper());
   gh.lazySingleton<_i183.ImagePicker>(() => registerModule.imagePicker);
   gh.lazySingleton<_i965.AtendimentoRepository>(
-    () => _i116.AtendimentoRepositoryMock(),
+    () => _i231.AtendimentoRepositoryImp(gh<_i64.DatabaseHelper>()),
   );
   gh.lazySingleton<_i392.BuscarTodosAtendimentosUseCase>(
     () =>
